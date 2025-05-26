@@ -1,0 +1,54 @@
+@use "sass:color" as *;
+
+@mixin generate-shades($color-name, $color-value) {
+  .box.base-color-#{$color-name} {
+    background-color: $color-value;
+    width: 100px;
+  }
+
+  $i: 1;
+  @while $i <=4 {
+    .box.lighten-#{$i}-#{$color-name} {
+      background-color: scale($color-value, $lightness: $i * 15%);
+    }
+    $i: $i + 1;
+  }
+
+  $i: 4;
+
+  @while $i >=1 {
+    .box.darken-#{$i}-#{$color-name} {
+      background-color: scale($color-value, $lightness: -1 * $i * 15%);
+    }
+    $i: $i - 1;
+  }
+}
+
+@include generate-shades("red", red);
+@include generate-shades("blue", blue);
+
+body {
+  background-color: white;
+}
+
+.container-1 {
+  display: flex;
+  justify-content: space-around;
+  max-width: 70%;
+}
+
+.container-1 div {
+  width: 70px;
+  height: 70px;
+  // background-color: $color-value;
+  padding: 5px;
+  align-content: center;
+  text-align: center;
+  border-radius: 10%;
+  margin-top: 10px;
+}
+
+.box.base-color {
+  // background-color: $color-base;
+  width: 100px;
+}
